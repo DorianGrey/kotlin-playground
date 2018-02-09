@@ -29,6 +29,7 @@ buildscript {
 // but at least one of them did not work with the `buildscript` way.
 
 plugins {
+    id 'distribution'
     id 'application'
     id 'com.github.ben-manes.versions' version '0.17.0'
 }
@@ -45,7 +46,7 @@ junitPlatform {
     }
 }
 
-mainClassName = 'app.MainKt'
+mainClassName = "app.MainKt"
 
 defaultTasks 'run'
 
