@@ -1,15 +1,21 @@
 package app
 
-/**
- * Testing some java POJO interop...
- */
-fun javaInteropPOJO() {
-    val user = User("Urql Random") // Look 'ma, no `new` required!
-    println("""Hello ${user.name}! Your ID is ${user.id}.""") // Look 'ma, no `get` required!
-    user.name = user.name.split(" ").last() // Look 'ma, no `set` required!
-    println("""Username was changed to '${user.name}'.""")
-}
+import io.vertx.core.DeploymentOptions
+import io.vertx.core.Vertx
+import io.vertx.core.logging.LoggerFactory
 
 fun main(args: Array<String>) {
-    javaInteropPOJO()
+    val LOG = LoggerFactory.getLogger("My-Vertx-App")
+
+    val vertx = Vertx.vertx()
+
+    val opts = DeploymentOptions()
+    vertx.deployVerticle(MainVerticle(), opts, { deploy ->
+        if (deploy.succeeded()) {
+            LOG.info("MainVerticle has been deployed successfully.")
+        } else {
+            LOG.warn("MainVerticle could not be deployed, due to ${deploy.cause()}")
+        }
+
+    })
 }
